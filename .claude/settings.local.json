@@ -32,7 +32,12 @@
       "mcp__aiforge__create_handoff",
       "mcp__aiforge__record_actual_effort",
       "WebFetch(domain:api.scryfall.com)",
-      "mcp__aiforge__update_implementation_plan"
+      "mcp__aiforge__update_implementation_plan",
+      "mcp__aiforge__transition_ticket",
+      "mcp__aiforge__log_file_change",
+      "Bash(dotnet restore:*)",
+      "Bash(npm run build:*)",
+      "Bash(dotnet ef database update:*)"
     ]
   }
 }

@@ -21,6 +21,8 @@ public class OracleScryDbContext : IdentityDbContext<ApplicationUser, IdentityRo
     public DbSet<CardFace> CardFaces => Set<CardFace>();
     public DbSet<RelatedCard> RelatedCards => Set<RelatedCard>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+    public DbSet<CardImport> CardImports => Set<CardImport>();
+    public DbSet<CardImportError> CardImportErrors => Set<CardImportError>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

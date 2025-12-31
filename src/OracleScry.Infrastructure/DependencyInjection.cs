@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OracleScry.Domain.Interfaces;
 using OracleScry.Infrastructure.Persistence;
 using OracleScry.Infrastructure.Persistence.Repositories;
+using OracleScry.Infrastructure.Services;
 
 namespace OracleScry.Infrastructure;
 
@@ -23,7 +24,11 @@ public static class DependencyInjection
         // Add repositories
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<ICardRepository, CardRepository>();
+        services.AddScoped<ICardImportRepository, CardImportRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        // Add HTTP clients
+        services.AddHttpClient<IScryfallApiClient, ScryfallApiClient>();
 
         return services;
     }

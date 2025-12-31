@@ -31,7 +31,8 @@ public class CardFaceConfiguration : IEntityTypeConfiguration<CardFace>
         builder.Property(cf => cf.Watermark).HasMaxLength(50);
         builder.Property(cf => cf.Artist).HasMaxLength(200);
 
-        builder.Property(cf => cf.Cmc).HasPrecision(5, 2);
+        // Decimal precision for CMC - allow large values for edge cases
+        builder.Property(cf => cf.Cmc).HasPrecision(12, 2);
 
         // JSON column for ImageUris
         builder.OwnsOne(cf => cf.ImageUris, img =>

@@ -11,6 +11,7 @@ import {
   LoginPage,
   RegisterPage,
   NotFoundPage,
+  AdminImportsPage,
 } from './pages';
 import { useEffect } from 'react';
 import { useAuthStore } from './stores';
@@ -49,6 +50,7 @@ function App() {
                 <Route path="sets" element={<SetBrowserPage />} />
                 <Route path="login" element={<LoginPage />} />
                 <Route path="register" element={<RegisterPage />} />
+                <Route path="admin/imports" element={<AdminImportsPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
             </Routes>

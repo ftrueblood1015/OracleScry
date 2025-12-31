@@ -56,8 +56,8 @@ public class CardConfiguration : IEntityTypeConfiguration<Card>
         builder.Property(c => c.SetSearchUri).HasMaxLength(500);
         builder.Property(c => c.ScryfallSetUri).HasMaxLength(500);
 
-        // Decimal precision for CMC
-        builder.Property(c => c.Cmc).HasPrecision(5, 2);
+        // Decimal precision for CMC - allow large values for edge cases
+        builder.Property(c => c.Cmc).HasPrecision(12, 2);
 
         // JSON columns for complex objects using EF Core 8 JSON support
         builder.OwnsOne(c => c.ImageUris, img =>

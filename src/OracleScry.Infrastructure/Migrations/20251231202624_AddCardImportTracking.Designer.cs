@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OracleScry.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using OracleScry.Infrastructure.Persistence;
 namespace OracleScry.Infrastructure.Migrations
 {
     [DbContext(typeof(OracleScryDbContext))]
-    partial class OracleScryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251231202624_AddCardImportTracking")]
+    partial class AddCardImportTracking
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,8 +191,8 @@ namespace OracleScry.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Cmc")
-                        .HasPrecision(12, 2)
-                        .HasColumnType("decimal(12,2)");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("CollectorNumber")
                         .IsRequired()
@@ -506,8 +509,8 @@ namespace OracleScry.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal?>("Cmc")
-                        .HasPrecision(12, 2)
-                        .HasColumnType("decimal(12,2)");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("ColorIndicator")
                         .HasColumnType("nvarchar(max)");

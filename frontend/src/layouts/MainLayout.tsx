@@ -24,12 +24,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { useAuthStore } from '../stores';
 import { useLogout } from '../hooks';
 
 const navItems = [
   { label: 'Search', path: '/search', icon: <SearchIcon /> },
   { label: 'Sets', path: '/sets', icon: <CollectionsIcon /> },
+  { label: 'Admin', path: '/admin/imports', icon: <AdminPanelSettingsIcon /> },
 ];
 
 export function MainLayout() {
