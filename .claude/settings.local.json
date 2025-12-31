@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp add aiforge --scope user -- dotnet run --project \"C:\\\\Users\\\\ftrue\\\\source\\\\repos\\\\AiForge\\\\src\\\\AiForge.Mcp\")",
+      "Bash(claude mcp list:*)",
+      "mcp__aiforge__create_project",
+      "WebFetch(domain:scryfall.com)",
+      "mcp__aiforge__list_projects",
+      "mcp__aiforge__create_ticket",
+      "mcp__aiforge__log_session_metrics",
+      "mcp__aiforge__start_planning",
+      "mcp__aiforge__log_decision",
+      "mcp__aiforge__create_implementation_plan",
+      "mcp__aiforge__estimate_ticket",
+      "mcp__aiforge__complete_planning",
+      "mcp__aiforge__update_session_metrics",
+      "mcp__aiforge__get_implementation_plan",
+      "mcp__aiforge__approve_implementation_plan",
+      "mcp__aiforge__add_comment",
+      "mcp__aiforge__log_progress",
+      "Bash(mkdir:*)",
+      "Bash(dotnet new:*)",
+      "Bash(dotnet sln:*)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet ef migrations add:*)",
+      "Bash(npm create:*)",
+      "Bash(npm install)",
+      "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\ftrue\\\\source\\\\repos\\\\OracleScry\\\\frontend'' ; npm install\")",
+      "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\ftrue\\\\source\\\\repos\\\\OracleScry\\\\frontend'' ; npm install @mui/material @emotion/react @emotion/styled @tanstack/react-query react-router-dom axios zustand @mui/icons-material\")",
+      "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\ftrue\\\\source\\\\repos\\\\OracleScry\\\\frontend'' ; New-Item -ItemType Directory -Force -Path src/types, src/api, src/hooks, src/stores, src/components, src/pages, src/layouts\")",
+      "Bash(powershell.exe:*)",
+      "mcp__aiforge__create_handoff",
+      "mcp__aiforge__record_actual_effort",
+      "WebFetch(domain:api.scryfall.com)",
+      "mcp__aiforge__update_implementation_plan"
+    ]
+  }
+}

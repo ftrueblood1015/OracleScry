@@ -1,0 +1,7 @@
+export { HomePage } from './HomePage';
+export { CardSearchPage } from './CardSearchPage';
+export { CardDetailPage } from './CardDetailPage';
+export { SetBrowserPage } from './SetBrowserPage';
+export { LoginPage } from './LoginPage';
+export { RegisterPage } from './RegisterPage';
+export { NotFoundPage } from './NotFoundPage';

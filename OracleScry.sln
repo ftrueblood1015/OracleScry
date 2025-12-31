@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{19DCD1BE-1912-43EC-85DC-5F1CD4BF2F9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OracleScry.Domain", "src\OracleScry.Domain\OracleScry.Domain.csproj", "{E7C36AD8-63D0-4460-AB8A-06F5EFFCB82E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OracleScry.Infrastructure", "src\OracleScry.Infrastructure\OracleScry.Infrastructure.csproj", "{D521774F-7CE0-4B12-8C95-9A695C2A386C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OracleScry.Application", "src\OracleScry.Application\OracleScry.Application.csproj", "{8B7F677A-2159-4155-85DD-6817726F3547}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OracleScry.Api", "src\OracleScry.Api\OracleScry.Api.csproj", "{BFDC42A5-3F15-4845-8C51-7099182DAEA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7C36AD8-63D0-4460-AB8A-06F5EFFCB82E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7C36AD8-63D0-4460-AB8A-06F5EFFCB82E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7C36AD8-63D0-4460-AB8A-06F5EFFCB82E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7C36AD8-63D0-4460-AB8A-06F5EFFCB82E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D521774F-7CE0-4B12-8C95-9A695C2A386C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D521774F-7CE0-4B12-8C95-9A695C2A386C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D521774F-7CE0-4B12-8C95-9A695C2A386C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D521774F-7CE0-4B12-8C95-9A695C2A386C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B7F677A-2159-4155-85DD-6817726F3547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B7F677A-2159-4155-85DD-6817726F3547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B7F677A-2159-4155-85DD-6817726F3547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B7F677A-2159-4155-85DD-6817726F3547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFDC42A5-3F15-4845-8C51-7099182DAEA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFDC42A5-3F15-4845-8C51-7099182DAEA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFDC42A5-3F15-4845-8C51-7099182DAEA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFDC42A5-3F15-4845-8C51-7099182DAEA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E7C36AD8-63D0-4460-AB8A-06F5EFFCB82E} = {19DCD1BE-1912-43EC-85DC-5F1CD4BF2F9F}
+		{D521774F-7CE0-4B12-8C95-9A695C2A386C} = {19DCD1BE-1912-43EC-85DC-5F1CD4BF2F9F}
+		{8B7F677A-2159-4155-85DD-6817726F3547} = {19DCD1BE-1912-43EC-85DC-5F1CD4BF2F9F}
+		{BFDC42A5-3F15-4845-8C51-7099182DAEA7} = {19DCD1BE-1912-43EC-85DC-5F1CD4BF2F9F}
+	EndGlobalSection
+EndGlobal
