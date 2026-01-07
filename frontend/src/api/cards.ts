@@ -7,9 +7,11 @@ import type { CardDto, CardFilterDto, CardSummaryDto, PagedResult } from '../typ
 export const searchCards = async (filter: CardFilterDto): Promise<PagedResult<CardSummaryDto>> => {
   const params = new URLSearchParams();
 
-  if (filter.search) params.append('search', filter.search);
-  if (filter.name) params.append('name', filter.name);
-  if (filter.set) params.append('set', filter.set);
+  // Backend expects 'Query' for text search
+  if (filter.search) params.append('Query', filter.search);
+  if (filter.name) params.append('Query', filter.name);
+  // Backend expects 'SetCode' for set filter
+  if (filter.set) params.append('SetCode', filter.set);
   if (filter.rarity) params.append('rarity', filter.rarity);
   if (filter.colors?.length) filter.colors.forEach((c) => params.append('colors', c));
   if (filter.colorIdentity?.length)

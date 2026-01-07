@@ -42,9 +42,44 @@ public class CardService(OracleScryDbContext context) : ICardService
         var page = filter.GetValidatedPage();
         var pageSize = filter.GetValidatedPageSize();
 
-        var query = _context.Cards.AsNoTracking();
+        // Build base query - use raw SQL if color filter is specified
+        // (EF Core value converters don't work with EF.Property for LIKE queries)
+        IQueryable<Card> query;
 
-        // Apply filters
+        if (filter.Colors?.Count > 0)
+        {
+            // Build raw SQL for color filtering
+            // Colors are stored as comma-separated strings (e.g., "W,U,B")
+            // Validate color inputs to prevent SQL injection (only allow valid MTG color codes)
+            var validColors = new HashSet<string> { "W", "U", "B", "R", "G", "C" };
+            var sanitizedColors = filter.Colors
+                .Select(c => c.ToUpper())
+                .Where(c => validColors.Contains(c))
+                .ToList();
+
+            if (sanitizedColors.Count > 0)
+            {
+                var colorConditions = sanitizedColors.Select(c =>
+                    // Match: exact value, starts with "C,", ends with ",C", or contains ",C,"
+                    $"(Colors = '{c}' OR Colors LIKE '{c},%' OR Colors LIKE '%,{c}' OR Colors LIKE '%,{c},%')"
+                );
+                var colorWhere = string.Join(" AND ", colorConditions);
+
+                query = _context.Cards
+                    .FromSqlRaw($"SELECT * FROM Cards WHERE {colorWhere}")
+                    .AsNoTracking();
+            }
+            else
+            {
+                query = _context.Cards.AsNoTracking();
+            }
+        }
+        else
+        {
+            query = _context.Cards.AsNoTracking();
+        }
+
+        // Apply other filters
         if (!string.IsNullOrWhiteSpace(filter.Query))
         {
             var searchTerm = filter.Query.ToLower();
@@ -78,16 +113,6 @@ public class CardService(OracleScryDbContext context) : ICardService
         {
             var typeTerm = filter.TypeLine.ToLower();
             query = query.Where(c => c.TypeLine.ToLower().Contains(typeTerm));
-        }
-
-        // Apply color filter (cards must contain ALL specified colors)
-        if (filter.Colors?.Count > 0)
-        {
-            foreach (var color in filter.Colors)
-            {
-                var c = color.ToUpper();
-                query = query.Where(card => card.Colors.Contains(c));
-            }
         }
 
         // Apply format legality filter

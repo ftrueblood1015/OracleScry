@@ -202,6 +202,59 @@ export function CardDetail({ card }: CardDetailProps) {
             </Link>
           </Box>
         )}
+
+        {/* Related Cards */}
+        {card.allParts && card.allParts.length > 0 && (
+          <Box sx={{ mt: 3 }}>
+            <Divider sx={{ mb: 2 }} />
+            <Typography variant="subtitle2" gutterBottom>
+              Related Cards
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              {card.allParts.map((related) => (
+                <Paper
+                  key={related.id}
+                  sx={{
+                    p: 1.5,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    bgcolor: 'background.default',
+                  }}
+                >
+                  <Box>
+                    <Typography variant="body2" fontWeight={600}>
+                      {related.name}
+                    </Typography>
+                    {related.typeLine && (
+                      <Typography variant="caption" color="text.secondary">
+                        {related.typeLine}
+                      </Typography>
+                    )}
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Chip
+                      label={related.component.replace('_', ' ')}
+                      size="small"
+                      variant="outlined"
+                      sx={{ textTransform: 'capitalize' }}
+                    />
+                    {related.uri && (
+                      <Link
+                        href={related.uri}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{ fontSize: '0.75rem' }}
+                      >
+                        View
+                      </Link>
+                    )}
+                  </Box>
+                </Paper>
+              ))}
+            </Box>
+          </Box>
+        )}
       </Grid>
     </Grid>
   );
