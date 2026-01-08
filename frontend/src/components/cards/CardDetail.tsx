@@ -9,6 +9,7 @@ import {
   Link,
 } from '@mui/material';
 import type { CardDto } from '../../types';
+import { CardPurposes } from '../purposes';
 
 interface CardDetailProps {
   card: CardDto;
@@ -111,6 +112,14 @@ export function CardDetail({ card }: CardDetailProps) {
             </Typography>
           </Paper>
         )}
+
+        {/* Card Purposes */}
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="subtitle2" gutterBottom>
+            Card Functions
+          </Typography>
+          <CardPurposes cardId={card.id} showConfidence />
+        </Box>
 
         {/* Flavor Text */}
         {card.flavorText && (

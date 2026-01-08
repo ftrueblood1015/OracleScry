@@ -25,6 +25,8 @@ public static class DependencyInjection
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<ICardRepository, CardRepository>();
         services.AddScoped<ICardImportRepository, CardImportRepository>();
+        services.AddScoped<ICardPurposeRepository, CardPurposeRepository>();
+        services.AddScoped<IPurposeExtractionJobRepository, PurposeExtractionJobRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         // Add HTTP clients

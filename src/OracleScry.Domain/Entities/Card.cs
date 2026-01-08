@@ -104,4 +104,5 @@ public class Card : BaseEntity
     // Navigation Properties (Separate Tables)
     public ICollection<CardFace> CardFaces { get; set; } = [];
     public ICollection<RelatedCard> AllParts { get; set; } = [];
+    public ICollection<CardCardPurpose> CardPurposes { get; set; } = [];
 }

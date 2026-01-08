@@ -38,7 +38,9 @@
       "Bash(dotnet restore:*)",
       "Bash(npm run build:*)",
       "Bash(dotnet ef database update:*)",
-      "mcp__aiforge__flag_technical_debt"
+      "mcp__aiforge__flag_technical_debt",
+      "Bash(tree:*)",
+      "Bash(sqlcmd:*)"
     ]
   }
 }

@@ -16,7 +16,11 @@ public static class DependencyInjection
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ICardImportService, CardImportService>();
+        services.AddScoped<ICardPurposeService, CardPurposeService>();
+        services.AddScoped<IPurposeExtractionService, PurposeExtractionService>();
+        services.AddScoped<IPurposeExtractor, PatternBasedPurposeExtractor>();
         services.AddScoped<ScryfallImportJob>();
+        services.AddScoped<PurposeExtractionJob>();
 
         return services;
     }

@@ -95,11 +95,20 @@ app.UseHangfireDashboard("/hangfire", new DashboardOptions
     DashboardTitle = "OracleScry Jobs"
 });
 
-// Configure recurring job - daily at 3:00 AM UTC
+// Configure recurring jobs
+// Scryfall import - daily at 3:00 AM UTC
 RecurringJob.AddOrUpdate<ScryfallImportJob>(
     "scryfall-daily-import",
     job => job.ExecuteAsync(CancellationToken.None),
     "0 3 * * *", // 3:00 AM UTC daily
+    new RecurringJobOptions { TimeZone = TimeZoneInfo.Utc }
+);
+
+// Purpose extraction - daily at 4:00 AM UTC (after import completes)
+RecurringJob.AddOrUpdate<PurposeExtractionJob>(
+    "purpose-daily-extraction",
+    job => job.ExecuteAsync(CancellationToken.None),
+    "0 4 * * *", // 4:00 AM UTC daily
     new RecurringJobOptions { TimeZone = TimeZoneInfo.Utc }
 );
 
