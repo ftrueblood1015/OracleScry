@@ -6,3 +6,5 @@ export { LoginPage } from './LoginPage';
 export { RegisterPage } from './RegisterPage';
 export { NotFoundPage } from './NotFoundPage';
 export { AdminImportsPage } from './AdminImportsPage';
+export { DecksPage } from './DecksPage';
+export { DeckDetailPage } from './DeckDetailPage';

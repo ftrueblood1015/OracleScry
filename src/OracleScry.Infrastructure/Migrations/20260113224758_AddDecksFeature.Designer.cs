@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OracleScry.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using OracleScry.Infrastructure.Persistence;
 namespace OracleScry.Infrastructure.Migrations
 {
     [DbContext(typeof(OracleScryDbContext))]
-    partial class OracleScryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260113224758_AddDecksFeature")]
+    partial class AddDecksFeature
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -17,6 +17,7 @@ public static class DependencyInjection
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ICardImportService, CardImportService>();
         services.AddScoped<ICardPurposeService, CardPurposeService>();
+        services.AddScoped<IDeckService, DeckService>();
         services.AddScoped<IPurposeExtractionService, PurposeExtractionService>();
         services.AddScoped<IPurposeExtractor, PatternBasedPurposeExtractor>();
         services.AddScoped<ScryfallImportJob>();

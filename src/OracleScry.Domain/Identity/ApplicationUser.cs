@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using OracleScry.Domain.Entities;
 
 namespace OracleScry.Domain.Identity;
 
@@ -12,7 +13,7 @@ public class ApplicationUser : IdentityUser<Guid>
     public DateTime CreatedAt { get; set; }
     public DateTime? LastLoginAt { get; set; }
 
-    // Navigation properties for future phases
-    // public ICollection<Deck> Decks { get; set; } = [];
+    // Navigation properties
+    public ICollection<Deck> Decks { get; set; } = [];
     // public ICollection<UserCardCollection> Collection { get; set; } = [];
 }

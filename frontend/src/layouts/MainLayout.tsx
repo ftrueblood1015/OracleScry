@@ -23,6 +23,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import CollectionsIcon from '@mui/icons-material/Collections';
+import StyleIcon from '@mui/icons-material/Style';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { useAuthStore } from '../stores';
@@ -31,6 +32,7 @@ import { useLogout } from '../hooks';
 const navItems = [
   { label: 'Search', path: '/search', icon: <SearchIcon /> },
   { label: 'Sets', path: '/sets', icon: <CollectionsIcon /> },
+  { label: 'My Decks', path: '/decks', icon: <StyleIcon />, requiresAuth: true },
   { label: 'Admin', path: '/admin/imports', icon: <AdminPanelSettingsIcon /> },
 ];
 
@@ -54,13 +56,15 @@ export function MainLayout() {
     navigate('/');
   };
 
+  const filteredNavItems = navItems.filter((item) => !item.requiresAuth || isAuthenticated);
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
         OracleScry
       </Typography>
       <List>
-        {navItems.map((item) => (
+        {filteredNavItems.map((item) => (
           <ListItem key={item.path} disablePadding>
             <ListItemButton component={RouterLink} to={item.path}>
               <ListItemIcon>{item.icon}</ListItemIcon>
@@ -104,7 +108,7 @@ export function MainLayout() {
 
           {!isMobile && (
             <Box sx={{ flexGrow: 1, display: 'flex', gap: 1 }}>
-              {navItems.map((item) => (
+              {filteredNavItems.map((item) => (
                 <Button
                   key={item.path}
                   component={RouterLink}

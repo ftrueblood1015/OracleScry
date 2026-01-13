@@ -26,6 +26,8 @@ public class OracleScryDbContext : IdentityDbContext<ApplicationUser, IdentityRo
     public DbSet<CardPurpose> CardPurposes => Set<CardPurpose>();
     public DbSet<CardCardPurpose> CardCardPurposes => Set<CardCardPurpose>();
     public DbSet<PurposeExtractionJob> PurposeExtractionJobs => Set<PurposeExtractionJob>();
+    public DbSet<Deck> Decks => Set<Deck>();
+    public DbSet<DeckCard> DeckCards => Set<DeckCard>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
