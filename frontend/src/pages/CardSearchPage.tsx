@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { CardSearchBar, CardFilters, CardGrid, Pagination } from '../components';
-import { useCardSearch, useSets } from '../hooks';
+import { useCardSearch, useSets, usePurposes } from '../hooks';
 import type { CardFilterDto, CardSummaryDto } from '../types';
 
 const defaultFilters: CardFilterDto = {
@@ -24,11 +24,13 @@ export function CardSearchPage() {
     rarity: searchParams.get('rarity') || undefined,
     format: searchParams.get('format') || undefined,
     colors: searchParams.getAll('colors') || undefined,
+    purposes: searchParams.getAll('purposes') || undefined,
     page: parseInt(searchParams.get('page') || '1'),
     pageSize: parseInt(searchParams.get('pageSize') || '24'),
   }));
 
   const { data: sets } = useSets();
+  const { data: purposes } = usePurposes();
   const { data, isLoading } = useCardSearch(filters);
 
   // Update URL when filters change
@@ -39,6 +41,7 @@ export function CardSearchPage() {
     if (filters.rarity) params.set('rarity', filters.rarity);
     if (filters.format) params.set('format', filters.format);
     if (filters.colors?.length) filters.colors.forEach((c) => params.append('colors', c));
+    if (filters.purposes?.length) filters.purposes.forEach((p) => params.append('purposes', p));
     if (filters.page && filters.page > 1) params.set('page', filters.page.toString());
     if (filters.pageSize && filters.pageSize !== 24) params.set('pageSize', filters.pageSize.toString());
     setSearchParams(params, { replace: true });
@@ -90,6 +93,7 @@ export function CardSearchPage() {
         filters={filters}
         onFilterChange={handleFilterChange}
         sets={sets}
+        purposes={purposes}
         onClear={handleClearFilters}
       />
 

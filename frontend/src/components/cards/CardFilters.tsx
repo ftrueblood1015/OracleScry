@@ -14,12 +14,13 @@ import {
 import type { SelectChangeEvent } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { useState } from 'react';
-import type { CardFilterDto, MtgColor } from '../../types';
+import type { CardFilterDto, MtgColor, CardPurposeSummaryDto } from '../../types';
 
 interface CardFiltersProps {
   filters: CardFilterDto;
   onFilterChange: (filters: Partial<CardFilterDto>) => void;
   sets?: string[];
+  purposes?: CardPurposeSummaryDto[];
   onClear?: () => void;
 }
 
@@ -57,12 +58,17 @@ const sortOptions = [
   { value: 'usd', label: 'Price (USD)' },
 ];
 
-export function CardFilters({ filters, onFilterChange, sets = [], onClear }: CardFiltersProps) {
+export function CardFilters({ filters, onFilterChange, sets = [], purposes = [], onClear }: CardFiltersProps) {
   const [expanded, setExpanded] = useState(false);
 
   const handleColorChange = (event: SelectChangeEvent<string[]>) => {
     const value = event.target.value;
     onFilterChange({ colors: typeof value === 'string' ? value.split(',') : value });
+  };
+
+  const handlePurposeChange = (event: SelectChangeEvent<string[]>) => {
+    const value = event.target.value;
+    onFilterChange({ purposes: typeof value === 'string' ? value.split(',') : value });
   };
 
   const handleCmcChange = (_: Event, value: number | number[]) => {
@@ -76,6 +82,7 @@ export function CardFilters({ filters, onFilterChange, sets = [], onClear }: Car
     filters.rarity ||
     filters.set ||
     filters.format ||
+    filters.purposes?.length ||
     filters.minCmc ||
     filters.maxCmc;
 
@@ -195,6 +202,37 @@ export function CardFilters({ filters, onFilterChange, sets = [], onClear }: Car
               {formatOptions.map((f) => (
                 <MenuItem key={f.value} value={f.value}>
                   {f.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          {/* Purpose */}
+          <FormControl size="small" fullWidth>
+            <InputLabel>Purpose</InputLabel>
+            <Select
+              multiple
+              value={filters.purposes || []}
+              onChange={handlePurposeChange}
+              input={<OutlinedInput label="Purpose" />}
+              renderValue={(selected) => (
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                  {selected.map((id) => {
+                    const purpose = purposes.find((p) => p.id === id);
+                    return (
+                      <Chip
+                        key={id}
+                        label={purpose?.name || id}
+                        size="small"
+                      />
+                    );
+                  })}
+                </Box>
+              )}
+            >
+              {purposes.map((purpose) => (
+                <MenuItem key={purpose.id} value={purpose.id}>
+                  {purpose.name}
                 </MenuItem>
               ))}
             </Select>

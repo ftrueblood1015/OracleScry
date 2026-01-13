@@ -121,6 +121,12 @@ public class CardService(OracleScryDbContext context) : ICardService
             query = ApplyFormatFilter(query, filter.Format);
         }
 
+        // Apply purpose filter
+        if (filter.PurposeIds?.Count > 0)
+        {
+            query = query.Where(c => c.CardPurposes.Any(cp => filter.PurposeIds.Contains(cp.CardPurposeId)));
+        }
+
         // Get total count
         var totalCount = await query.CountAsync(ct);
 

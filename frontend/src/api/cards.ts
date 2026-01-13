@@ -20,6 +20,7 @@ export const searchCards = async (filter: CardFilterDto): Promise<PagedResult<Ca
   if (filter.minCmc !== undefined) params.append('minCmc', filter.minCmc.toString());
   if (filter.maxCmc !== undefined) params.append('maxCmc', filter.maxCmc.toString());
   if (filter.format) params.append('format', filter.format);
+  if (filter.purposes?.length) filter.purposes.forEach((p) => params.append('purposeIds', p));
   if (filter.page) params.append('page', filter.page.toString());
   if (filter.pageSize) params.append('pageSize', filter.pageSize.toString());
   if (filter.sortBy) params.append('sortBy', filter.sortBy);

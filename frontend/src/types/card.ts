@@ -215,6 +215,7 @@ export interface CardFilterDto {
   minCmc?: number;
   maxCmc?: number;
   format?: string;
+  purposes?: string[];
   page?: number;
   pageSize?: number;
   sortBy?: string;

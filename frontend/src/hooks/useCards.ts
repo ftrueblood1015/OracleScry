@@ -6,6 +6,7 @@ import {
   getSets,
   getCardsBySet,
   getRandomCards,
+  getAllPurposes,
 } from '../api';
 import type { CardFilterDto } from '../types';
 
@@ -69,5 +70,13 @@ export const useRandomCards = (count = 10) => {
     queryFn: () => getRandomCards(count),
     staleTime: 0, // Always fetch fresh random cards
     refetchOnWindowFocus: false,
+  });
+};
+
+export const usePurposes = () => {
+  return useQuery({
+    queryKey: ['purposes'],
+    queryFn: getAllPurposes,
+    staleTime: 30 * 60 * 1000, // 30 minutes - purposes don't change often
   });
 };
