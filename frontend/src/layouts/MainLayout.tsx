@@ -33,14 +33,14 @@ const navItems = [
   { label: 'Search', path: '/search', icon: <SearchIcon /> },
   { label: 'Sets', path: '/sets', icon: <CollectionsIcon /> },
   { label: 'My Decks', path: '/decks', icon: <StyleIcon />, requiresAuth: true },
-  { label: 'Admin', path: '/admin/imports', icon: <AdminPanelSettingsIcon /> },
+  { label: 'Admin', path: '/admin/imports', icon: <AdminPanelSettingsIcon />, requiresAdmin: true },
 ];
 
 export function MainLayout() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuthStore();
+  const { user, isAuthenticated, isAdmin } = useAuthStore();
   const logout = useLogout();
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -56,7 +56,11 @@ export function MainLayout() {
     navigate('/');
   };
 
-  const filteredNavItems = navItems.filter((item) => !item.requiresAuth || isAuthenticated);
+  const filteredNavItems = navItems.filter((item) => {
+    if (item.requiresAdmin && !isAdmin()) return false;
+    if (item.requiresAuth && !isAuthenticated) return false;
+    return true;
+  });
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>

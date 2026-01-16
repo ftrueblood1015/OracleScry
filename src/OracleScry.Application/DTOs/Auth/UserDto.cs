@@ -8,5 +8,6 @@ public record UserDto(
     string Email,
     string? DisplayName,
     DateTime CreatedAt,
-    DateTime? LastLoginAt
+    DateTime? LastLoginAt,
+    IReadOnlyList<string> Roles
 );

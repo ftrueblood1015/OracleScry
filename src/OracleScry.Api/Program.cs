@@ -8,6 +8,7 @@ using OracleScry.Application;
 using OracleScry.Application.BackgroundJobs;
 using OracleScry.Domain.Identity;
 using OracleScry.Infrastructure;
+using OracleScry.Infrastructure.Identity;
 using OracleScry.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +34,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
 
 // Add JWT Authentication
 builder.Services.AddJwtAuthentication(builder.Configuration);
+
+// Add Authorization Policies
+builder.Services.AddAuthorizationPolicies();
+
+// Register RoleSeeder
+builder.Services.AddScoped<RoleSeeder>();
 
 // Add layers
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -63,6 +70,13 @@ builder.Services.AddHangfireServer(options =>
 });
 
 var app = builder.Build();
+
+// Seed roles and admin user
+using (var scope = app.Services.CreateScope())
+{
+    var roleSeeder = scope.ServiceProvider.GetRequiredService<RoleSeeder>();
+    await roleSeeder.SeedAsync();
+}
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())

@@ -8,11 +8,11 @@ namespace OracleScry.Api.Controllers;
 
 /// <summary>
 /// Import API controller for viewing import history and statistics.
-/// All endpoints require authentication (admin access in future).
+/// All endpoints require Admin role.
 /// </summary>
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
+[Authorize(Policy = "Admin")]
 public class ImportController(ICardImportService importService) : ControllerBase
 {
     private readonly ICardImportService _importService = importService;

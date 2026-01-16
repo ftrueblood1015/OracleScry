@@ -70,7 +70,7 @@ public class PurposesController(
     /// Create a new purpose.
     /// </summary>
     [HttpPost]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(CardPurposeDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create([FromBody] CreateCardPurposeRequest request, CancellationToken ct)
@@ -94,7 +94,7 @@ public class PurposesController(
     /// Update an existing purpose.
     /// </summary>
     [HttpPut("{id:guid}")]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(CardPurposeDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -115,7 +115,7 @@ public class PurposesController(
     /// Delete a purpose.
     /// </summary>
     [HttpDelete("{id:guid}")]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id, CancellationToken ct)
@@ -143,7 +143,7 @@ public class PurposesController(
     /// Trigger a purpose extraction job.
     /// </summary>
     [HttpPost("extraction/trigger")]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(PurposeExtractionJobDto), StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -166,7 +166,7 @@ public class PurposesController(
     /// Get paginated extraction job history.
     /// </summary>
     [HttpGet("extraction/history")]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(PagedResult<PurposeExtractionJobSummaryDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetExtractionHistory(
         [FromQuery] int page = 1,
@@ -184,7 +184,7 @@ public class PurposesController(
     /// Get a specific extraction job.
     /// </summary>
     [HttpGet("extraction/{id:guid}")]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(PurposeExtractionJobDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetExtractionJob(Guid id, CancellationToken ct)
@@ -197,7 +197,7 @@ public class PurposesController(
     /// Get the most recent extraction job.
     /// </summary>
     [HttpGet("extraction/latest")]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(PurposeExtractionJobSummaryDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetLatestExtraction(CancellationToken ct)
@@ -210,7 +210,7 @@ public class PurposesController(
     /// Get extraction statistics.
     /// </summary>
     [HttpGet("extraction/stats")]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(ExtractionStatsDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetExtractionStats(CancellationToken ct)
     {
@@ -222,7 +222,7 @@ public class PurposesController(
     /// Check if an extraction is currently running.
     /// </summary>
     [HttpGet("extraction/status")]
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetExtractionStatus(CancellationToken ct)
     {

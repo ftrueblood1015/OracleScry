@@ -11,11 +11,13 @@ interface AuthState {
   setLoading: (loading: boolean) => void;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
+  isAdmin: () => boolean;
+  hasRole: (role: string) => boolean;
 }
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       isAuthenticated: false,
       isLoading: true,
@@ -47,6 +49,10 @@ export const useAuthStore = create<AuthState>()(
           isLoading: false,
         });
       },
+
+      isAdmin: () => get().user?.roles?.includes('Admin') ?? false,
+
+      hasRole: (role: string) => get().user?.roles?.includes(role) ?? false,
     }),
     {
       name: 'oraclescry-auth',

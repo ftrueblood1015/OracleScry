@@ -5,6 +5,7 @@ export { SetBrowserPage } from './SetBrowserPage';
 export { LoginPage } from './LoginPage';
 export { RegisterPage } from './RegisterPage';
 export { NotFoundPage } from './NotFoundPage';
+export { UnauthorizedPage } from './UnauthorizedPage';
 export { AdminImportsPage } from './AdminImportsPage';
 export { DecksPage } from './DecksPage';
 export { DeckDetailPage } from './DeckDetailPage';

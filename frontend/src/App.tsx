@@ -11,11 +11,12 @@ import {
   LoginPage,
   RegisterPage,
   NotFoundPage,
+  UnauthorizedPage,
   AdminImportsPage,
   DecksPage,
   DeckDetailPage,
 } from './pages';
-import { ProtectedRoute } from './components';
+import { ProtectedRoute, AdminRoute } from './components';
 import { useEffect } from 'react';
 import { useAuthStore } from './stores';
 
@@ -55,7 +56,8 @@ function App() {
                 <Route path="register" element={<RegisterPage />} />
                 <Route path="decks" element={<ProtectedRoute><DecksPage /></ProtectedRoute>} />
                 <Route path="decks/:id" element={<ProtectedRoute><DeckDetailPage /></ProtectedRoute>} />
-                <Route path="admin/imports" element={<AdminImportsPage />} />
+                <Route path="admin/imports" element={<AdminRoute><AdminImportsPage /></AdminRoute>} />
+                <Route path="unauthorized" element={<UnauthorizedPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
             </Routes>

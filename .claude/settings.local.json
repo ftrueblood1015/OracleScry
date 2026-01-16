@@ -40,7 +40,9 @@
       "Bash(dotnet ef database update:*)",
       "mcp__aiforge__flag_technical_debt",
       "Bash(tree:*)",
-      "Bash(sqlcmd:*)"
+      "Bash(sqlcmd:*)",
+      "Bash(dir:*)",
+      "mcp__aiforge__search_tickets"
     ]
   }
 }

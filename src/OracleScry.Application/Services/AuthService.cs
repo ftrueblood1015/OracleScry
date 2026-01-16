@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OracleScry.Application.DTOs.Auth;
 using OracleScry.Application.Interfaces;
+using OracleScry.Domain.Constants;
 using OracleScry.Domain.Entities;
 using OracleScry.Domain.Identity;
 using OracleScry.Infrastructure.Persistence;
@@ -45,6 +46,9 @@ public class AuthService(
             var errors = string.Join(", ", result.Errors.Select(e => e.Description));
             return AuthResponse.Failure(errors);
         }
+
+        // Assign default User role
+        await _userManager.AddToRoleAsync(user, Roles.User);
 
         // Generate tokens
         return await GenerateTokensAsync(user, ct);
@@ -114,17 +118,23 @@ public class AuthService(
         var user = await _userManager.FindByIdAsync(userId.ToString());
         if (user == null) return null;
 
+        var roles = await _userManager.GetRolesAsync(user);
+
         return new UserDto(
             user.Id,
             user.Email ?? string.Empty,
             user.DisplayName,
             user.CreatedAt,
-            user.LastLoginAt);
+            user.LastLoginAt,
+            roles.ToList());
     }
 
     private async Task<AuthResponse> GenerateTokensAsync(ApplicationUser user, CancellationToken ct)
     {
-        var accessToken = _tokenService.GenerateAccessToken(user);
+        // Fetch user roles
+        var roles = await _userManager.GetRolesAsync(user);
+
+        var accessToken = _tokenService.GenerateAccessToken(user, roles);
         var refreshTokenValue = _tokenService.GenerateRefreshToken();
 
         var refreshToken = new RefreshToken
@@ -144,7 +154,8 @@ public class AuthService(
             user.Email ?? string.Empty,
             user.DisplayName,
             user.CreatedAt,
-            user.LastLoginAt);
+            user.LastLoginAt,
+            roles.ToList());
 
         return AuthResponse.Ok(
             accessToken,

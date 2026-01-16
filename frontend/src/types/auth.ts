@@ -41,4 +41,15 @@ export interface UserDto {
   id: string;
   email: string;
   displayName: string;
+  roles: string[];
 }
+
+/**
+ * Role constants
+ */
+export const Roles = {
+  Admin: 'Admin',
+  User: 'User',
+} as const;
+
+export type Role = (typeof Roles)[keyof typeof Roles];

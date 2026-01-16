@@ -16,7 +16,7 @@ public class TokenService(IConfiguration configuration) : ITokenService
 {
     private readonly IConfiguration _configuration = configuration;
 
-    public string GenerateAccessToken(ApplicationUser user)
+    public string GenerateAccessToken(ApplicationUser user, IList<string> roles)
     {
         var jwtSettings = _configuration.GetSection("Jwt");
         var secret = jwtSettings["Secret"] ?? throw new InvalidOperationException("JWT Secret not configured");
@@ -33,6 +33,12 @@ public class TokenService(IConfiguration configuration) : ITokenService
             new(ClaimTypes.Name, user.DisplayName ?? user.Email ?? string.Empty),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
+
+        // Add role claims
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
 
         var token = new JwtSecurityToken(
             issuer: issuer,

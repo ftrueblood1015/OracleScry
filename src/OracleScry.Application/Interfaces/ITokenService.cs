@@ -7,7 +7,7 @@ namespace OracleScry.Application.Interfaces;
 /// </summary>
 public interface ITokenService
 {
-    string GenerateAccessToken(ApplicationUser user);
+    string GenerateAccessToken(ApplicationUser user, IList<string> roles);
     string GenerateRefreshToken();
     DateTime GetAccessTokenExpiration();
     DateTime GetRefreshTokenExpiration();
