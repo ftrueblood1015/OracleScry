@@ -29,6 +29,12 @@ public class CardPurpose : BaseEntity
     /// <summary>Regex patterns used to match this purpose (pipe-separated)</summary>
     public string? Patterns { get; set; }
 
+    /// <summary>Required card types (pipe-separated, e.g., "Creature|Artifact"). Card must contain one of these.</summary>
+    public string? RequiredTypes { get; set; }
+
+    /// <summary>Excluded card types (pipe-separated, e.g., "Land"). Card must NOT contain any of these.</summary>
+    public string? ExcludedTypes { get; set; }
+
     // Navigation property
     public ICollection<CardCardPurpose> CardPurposes { get; set; } = [];
 }

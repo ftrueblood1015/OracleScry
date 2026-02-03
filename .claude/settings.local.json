@@ -42,7 +42,43 @@
       "Bash(tree:*)",
       "Bash(sqlcmd:*)",
       "Bash(dir:*)",
-      "mcp__aiforge__search_tickets"
+      "mcp__aiforge__search_tickets",
+      "mcp__pulsiron__pulsiron_getting_started",
+      "mcp__pulsiron__pulsiron_get_project",
+      "mcp__pulsiron__pulsiron_get_features",
+      "mcp__pulsiron__pulsiron_create_handoff",
+      "mcp__pulsiron__pulsiron_create_feature",
+      "mcp__aiforge__create_agent",
+      "mcp__aiforge__list_skill_chains",
+      "mcp__aiforge__get_skill_chain",
+      "mcp__aiforge__list_skills",
+      "mcp__aiforge__get_skill",
+      "mcp__aiforge__create_skill",
+      "mcp__aiforge__publish_skill",
+      "mcp__aiforge__create_skill_chain",
+      "mcp__aiforge__add_chain_link",
+      "mcp__aiforge__update_chain_link",
+      "mcp__aiforge__publish_skill_chain",
+      "mcp__aiforge__start_chain_execution",
+      "mcp__aiforge__get_chain_execution",
+      "Bash(git log:*)",
+      "mcp__aiforge__record_link_outcome",
+      "mcp__aiforge__advance_chain",
+      "mcp__aiforge__get_context",
+      "mcp__aiforge__get_planning_data",
+      "mcp__aiforge__create_sub_ticket",
+      "mcp__aiforge__aiforge_create_queue",
+      "mcp__aiforge__aiforge_add_queue_item",
+      "mcp__aiforge__aiforge_update_context",
+      "mcp__aiforge__aiforge_checkout_queue",
+      "mcp__aiforge__aiforge_get_queue_items",
+      "mcp__aiforge__aiforge_advance_queue_item",
+      "mcp__aiforge__aiforge_release_queue",
+      "mcp__aiforge__list_sub_tickets"
     ]
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "pulsiron"
+  ]
 }

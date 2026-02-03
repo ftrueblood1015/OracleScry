@@ -16,8 +16,10 @@ public class PatternBasedPurposeExtractor : IPurposeExtractor
     {
         var matches = new List<PurposeMatch>();
 
-        // Get oracle text from card or its faces
+        // Get oracle text and type line from card or its faces
         var oracleText = GetOracleText(card);
+        var typeLine = GetTypeLine(card);
+
         if (string.IsNullOrWhiteSpace(oracleText))
         {
             return matches;
@@ -26,6 +28,10 @@ public class PatternBasedPurposeExtractor : IPurposeExtractor
         foreach (var purpose in purposes)
         {
             if (string.IsNullOrWhiteSpace(purpose.Patterns))
+                continue;
+
+            // Check type constraints before pattern matching
+            if (!MeetsTypeConstraints(typeLine, purpose))
                 continue;
 
             var regexPatterns = GetCompiledPatterns(purpose);
@@ -72,6 +78,52 @@ public class PatternBasedPurposeExtractor : IPurposeExtractor
         }
 
         return string.Empty;
+    }
+
+    private static string GetTypeLine(Card card)
+    {
+        // First try the main type line
+        if (!string.IsNullOrWhiteSpace(card.TypeLine))
+        {
+            return card.TypeLine;
+        }
+
+        // For multi-face cards, concatenate type lines
+        if (card.CardFaces?.Count > 0)
+        {
+            var typeLines = card.CardFaces
+                .Where(f => !string.IsNullOrWhiteSpace(f.TypeLine))
+                .Select(f => f.TypeLine);
+
+            return string.Join(" // ", typeLines);
+        }
+
+        return string.Empty;
+    }
+
+    private static bool MeetsTypeConstraints(string typeLine, CardPurpose purpose)
+    {
+        // Check required types - card must contain at least one
+        if (!string.IsNullOrWhiteSpace(purpose.RequiredTypes))
+        {
+            var requiredTypes = purpose.RequiredTypes.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (!requiredTypes.Any(t => typeLine.Contains(t, StringComparison.OrdinalIgnoreCase)))
+            {
+                return false;
+            }
+        }
+
+        // Check excluded types - card must NOT contain any
+        if (!string.IsNullOrWhiteSpace(purpose.ExcludedTypes))
+        {
+            var excludedTypes = purpose.ExcludedTypes.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (excludedTypes.Any(t => typeLine.Contains(t, StringComparison.OrdinalIgnoreCase)))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private List<Regex> GetCompiledPatterns(CardPurpose purpose)
