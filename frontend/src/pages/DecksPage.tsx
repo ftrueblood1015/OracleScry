@@ -1,20 +1,26 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Box, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions, ButtonGroup } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { DeckList, CreateDeckDialog } from '../components';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { DeckList, CreateDeckDialog, CreateDeckFromTemplateDialog } from '../components';
 import { useMyDecks, useCreateDeck, useDeleteDeck } from '../hooks';
+import { useCreateDeckFromTemplate } from '../hooks/useDeckTemplates';
 import type { DeckSummaryDto } from '../types';
+import type { CreateDeckFromTemplateRequest } from '../types/deckTemplate';
 
 export function DecksPage() {
   const navigate = useNavigate();
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const [templateDialogOpen, setTemplateDialogOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<DeckSummaryDto | null>(null);
   const [createError, setCreateError] = useState<string | null>(null);
+  const [templateError, setTemplateError] = useState<string | null>(null);
 
   const { data: decks, isLoading, error } = useMyDecks();
   const createDeck = useCreateDeck();
   const deleteDeck = useDeleteDeck();
+  const createFromTemplate = useCreateDeckFromTemplate();
 
   const handleDeckClick = (deck: DeckSummaryDto) => {
     navigate(`/decks/${deck.id}`);
@@ -41,19 +47,37 @@ export function DecksPage() {
     }
   };
 
+  const handleCreateFromTemplate = async (templateId: string, request: CreateDeckFromTemplateRequest) => {
+    setTemplateError(null);
+    try {
+      const newDeck = await createFromTemplate.mutateAsync({ templateId, request });
+      setTemplateDialogOpen(false);
+      navigate(`/decks/${newDeck.id}`);
+    } catch (err) {
+      setTemplateError(err instanceof Error ? err.message : 'Failed to create deck from template');
+    }
+  };
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Typography variant="h4" fontWeight={700}>
           My Decks
         </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => setCreateDialogOpen(true)}
-        >
-          New Deck
-        </Button>
+        <ButtonGroup variant="contained">
+          <Button
+            startIcon={<AddIcon />}
+            onClick={() => setCreateDialogOpen(true)}
+          >
+            New Deck
+          </Button>
+          <Button
+            startIcon={<ContentCopyIcon />}
+            onClick={() => setTemplateDialogOpen(true)}
+          >
+            From Template
+          </Button>
+        </ButtonGroup>
       </Box>
 
       <DeckList
@@ -74,6 +98,17 @@ export function DecksPage() {
         onSubmit={handleCreateDeck}
         isLoading={createDeck.isPending}
         error={createError}
+      />
+
+      <CreateDeckFromTemplateDialog
+        open={templateDialogOpen}
+        onClose={() => {
+          setTemplateDialogOpen(false);
+          setTemplateError(null);
+        }}
+        onSubmit={handleCreateFromTemplate}
+        isLoading={createFromTemplate.isPending}
+        error={templateError}
       />
 
       {/* Delete Confirmation Dialog */}
